@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -25,27 +24,29 @@ class ClinicServiceImplTest {
 
     @Mock
     PetRepository petRepository;
+
     @Mock
     VetRepository vetRepository;
+
     @Mock
     OwnerRepository ownerRepository;
+
     @Mock
     VisitRepository visitRepository;
 
     @InjectMocks
-    ClinicServiceImpl clinicService;
+    ClinicServiceImpl service;
 
     @Test
     void findPetTypes() {
-        // given
-        List<PetType> givenPets = new ArrayList<>();
-        given(petRepository.findPetTypes()).willReturn(givenPets);
+        //given
+        List<PetType> petTypeList = new ArrayList<>();
+        given(petRepository.findPetTypes()).willReturn(petTypeList);
+        //when
+        Collection<PetType> returnedPetTypes = service.findPetTypes();
 
-        // when
-        Collection<PetType> result = clinicService.findPetTypes();
-
-        // then
+        //then
         then(petRepository).should().findPetTypes();
-        assertThat(result).isNotNull();
+        assertThat(returnedPetTypes).isNotNull();
     }
 }
